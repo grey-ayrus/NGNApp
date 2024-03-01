@@ -2,6 +2,8 @@ import dayjs from "dayjs";
 import React, { useContext } from "react";
 import logo from "../assets/logo.png";
 import GlobalContext from "../context/GlobalContext";
+import MediaQuery from "react-responsive";
+
 export default function CalendarHeader() {
   const { monthIndex, setMonthIndex } = useContext(GlobalContext);
   function handlePrevMonth() {
@@ -20,7 +22,15 @@ export default function CalendarHeader() {
   return (
     <header className="px-4 py-2 flex items-center bg-teal-100">
       <img src={logo} alt="calendar" className="mr-2 w-12 h-12" />
-      <h1 className="mr-10 text-xl text-gray-500 fond-bold">Calendar</h1>
+
+      <MediaQuery minWidth={1224}>
+        <h1 className="mr-10 text-xl text-gray-500 fond-bold">Calendar</h1>
+      </MediaQuery>
+
+      <MediaQuery maxWidth={1224}>
+        <h1 className="mr-10 text-xl text-gray-500 fond-bold">Test Calendar</h1>
+      </MediaQuery>
+
       <button onClick={handleReset} className="border-2 rounded py-2 px-4 mr-5">
         Today
       </button>

@@ -3,9 +3,63 @@ import GlobalContext from "../context/GlobalContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import JSONDATA from "./MOCK_DATA.json";
+import MediaQuery from "react-responsive";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
+import CreatableSelect from "react-select/creatable";
 
 const labelsClasses = ["indigo", "gray", "green", "blue", "red", "purple"];
 
+// const members = [{ value }];
+// const options = [
+//   { value: "chocolate", label: "Chocolate" },
+//   { value: "strawberry", label: "Strawberry" },
+//   { value: "vanilla", label: "Vanilla" },
+// ];
+
+//testbegin
+const options = [
+  { value: "jack", label: "Jack", color: "#FF8B00" },
+  { value: "john", label: "John", color: "#36B37E" },
+  { value: "mike", label: "Mike", color: "#0052CC" },
+];
+const colorStyles = {
+  control: (styles) => ({ ...styles, backgroundColor: "white" }),
+  option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+    return { ...styles, color: data.color };
+  },
+  multiValue: (styles, { data }) => {
+    return {
+      ...styles,
+      backgroundColor: data.color,
+      color: "#fff",
+    };
+  },
+  multiValueLabel: (styles, { data }) => {
+    return {
+      ...styles,
+      color: "#fff",
+    };
+  },
+  multiValueRemove: (styles, { data }) => {
+    return {
+      ...styles,
+      color: "#fff",
+      cursor: "pointer",
+      ":hover": {
+        color: "#fff",
+      },
+    };
+  },
+};
+const handleChange = (selectedOption, actionMeta) => {
+  console.log("handleChange", selectedOption, actionMeta);
+};
+const handleInputChange = (inputValue, actionMeta) => {
+  console.log("handleInputChange", inputValue, actionMeta);
+};
+
+//test end
 export default function EventModal() {
   const {
     setShowEventModal,
@@ -94,7 +148,7 @@ export default function EventModal() {
               placeholder="Add title"
               value={title}
               required
-              className="pt-3 border-0 text-gray-600 text-xl font-semibold pb-2 w-full border-b-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-blue-500"
+              className="pt-3 flex border-0 text-gray-600 text-xl font-semibold pb-2 w-full border-b-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-blue-500"
               onChange={(e) => setTitle(e.target.value)}
             />
 
@@ -141,6 +195,7 @@ export default function EventModal() {
               className="pt-3 border-0 text-gray-600 pb-2 w-full border-b-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-blue-500"
               onChange={(e) => setDescription(e.target.value)}
             />
+
             <span className="material-icons-outlined text-gray-400">
               segment
             </span>
@@ -168,7 +223,7 @@ export default function EventModal() {
                 })}
               </select> */}
 
-            <label>
+            {/* <label>
               Choose an owner:
               <select value={owner} onChange={(e) => setOwner(e.target.value)}>
                 <option value="Pronoy">Pronoy</option>
@@ -176,7 +231,15 @@ export default function EventModal() {
                 <option value="Rahuk">Rahuk</option>
                 <option value="Superman">Superman</option>
               </select>
-            </label>
+            </label> */}
+
+            <CreatableSelect
+              options={options}
+              onChange={handleChange}
+              onInputChange={handleInputChange}
+              isMulti
+              styles={colorStyles}
+            />
 
             <span className="material-icons-outlined text-gray-400">
               bookmark_border
